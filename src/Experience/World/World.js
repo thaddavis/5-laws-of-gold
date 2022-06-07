@@ -27,7 +27,9 @@ import { timeline_bridge_white_background } from "Experience/Timeline/Sections/B
 import { timeline_bridge_line_1 } from "Experience/Timeline/Sections/Bridge/Line1";
 import { timeline_bridge_line_2 } from "Experience/Timeline/Sections/Bridge/Line2";
 
-import { timeline_cross_to_english_cross } from "Experience/Sequences/CrossToEnglishCross";
+// import { timeline_cross_to_english_cross } from "Experience/Sequences/CrossToEnglishCross";
+
+import { timeline_the_5_laws_of_gold } from "Experience/Sequences/TheRichestManInBabylon/The5LawsOfGold";
 
 // GLOBALS
 import { timeline_camera } from "../Timeline/Camera/Camera";
@@ -82,8 +84,10 @@ export default class World {
       // // ^^^ NEW TIMELINE ^^^
 
       // vvv Alt Sequence vvv
-      timeline_cross_to_english_cross(this.timelineOfEvents);
+      // timeline_cross_to_english_cross(this.timelineOfEvents);
       // ^^^ Alt Sequence ^^^
+
+      timeline_the_5_laws_of_gold(this.timelineOfEvents);
 
       this.environment = new Environment();
     });
@@ -108,6 +112,8 @@ export default class World {
         this.experience.time.elapsed > updatable.endAt &&
         updatable.started === true
       ) {
+        // debugger;
+
         if (!updatable.isGlobal) this.updatables[updatableId].moveOffStage();
         this.timelineOfEvents[updatableId].started = false;
         delete this.updatables[updatableId];
@@ -116,7 +122,11 @@ export default class World {
 
     for (let updatableId in this.updatables) {
       const updatable = this.timelineOfEvents[updatableId];
-      if ([INSTANCE_NAMES.CAMERA].includes(updatable.instanceName)) {
+      if (
+        [INSTANCE_NAMES.CAMERA, INSTANCE_NAMES.DIRECTIONAL_LIGHT_1].includes(
+          updatable.instanceName
+        )
+      ) {
         // * ANIMATE GLOBAL CAMERA * //
         // window.experience.camera.updateCamera(updatable.effects);
       } else {

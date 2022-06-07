@@ -5,10 +5,13 @@ import Debug from "./Utils/Debug.js";
 import Sizes from "./Utils/Sizes.js";
 import Time from "./Utils/Time.js";
 import Camera from "./Camera.js";
+import DirectionalLight1 from "Experience/World/WorldObjectClasses/DirectionalLight1";
 import Renderer from "./Renderer.js";
 import World from "./World/World.js";
 import Resources from "./Utils/Resources.js";
 import { Config } from "./Config";
+
+import { INSTANCE_NAMES } from "./Utils/Enums.js";
 
 import sources from "./sources.js";
 import EffectComposerClass from "./EffectComposerClass.js";
@@ -16,6 +19,7 @@ import EffectComposerClass from "./EffectComposerClass.js";
 // import AudioClass from "./World/AudioClass.js";
 
 import { get } from "lodash";
+
 // import Capturer from "./Capturer.js";
 
 let instance = null; // Experience singleton
@@ -108,6 +112,12 @@ export default class Experience {
     this.resources = new Resources(sources);
 
     this.camera = new Camera();
+
+    this.directionalLight = new DirectionalLight1({
+      instanceName: INSTANCE_NAMES.DIRECTIONAL_LIGHT_1,
+      position: new THREE.Vector3(0, 0, 2),
+      target: new THREE.Vector3(0, 0, -2),
+    });
     this.renderer = new Renderer();
     // this.capturer = new Capturer();
 
@@ -117,9 +127,9 @@ export default class Experience {
 
     this.world = new World();
 
-    // this.stats = new Stats();
-    // this.stats.showPanel(0); // 0: fps, 1: ms, 2: mb, 3+: custom
-    // document.body.appendChild(this.stats.dom);
+    this.stats = new Stats();
+    this.stats.showPanel(0); // 0: fps, 1: ms, 2: mb, 3+: custom
+    document.body.appendChild(this.stats.dom);
 
     // Resize event
     this.sizes.on("resize", () => {
@@ -142,7 +152,7 @@ export default class Experience {
   }
 
   update() {
-    // this.stats.begin();
+    this.stats.begin();
 
     // console.log("Experience.js update");
 
@@ -161,6 +171,8 @@ export default class Experience {
     }
     // debugger;
     // * ^ CCapture HERE ^ *
+
+    this.stats.end();
   }
 
   destroy() {

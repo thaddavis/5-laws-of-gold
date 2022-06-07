@@ -30,28 +30,30 @@ export default class Light {
       "shadows.mapSize.y",
       2048
     );
-    directionalLight.shadow.camera.near = 0.5;
-    directionalLight.shadow.camera.far = 20;
-    directionalLight.shadow.camera.top = 22;
-    directionalLight.shadow.camera.right = 22;
-    directionalLight.shadow.camera.bottom = -20;
+    directionalLight.shadow.camera.near = 4;
+    directionalLight.shadow.camera.far = 10;
+    directionalLight.shadow.camera.top = 12;
+    directionalLight.shadow.camera.right = 12;
+    directionalLight.shadow.camera.bottom = -10;
     directionalLight.shadow.camera.left = -20;
-    directionalLight.position.set(2, 2, 14);
+    directionalLight.position.set(-2, 0, 0);
 
     const t = new THREE.Object3D();
     t.translateX(0);
     t.translateY(0);
-    t.translateZ(4);
+    t.translateZ(0);
     directionalLight.target = t;
 
     this.light = directionalLight;
 
     this.scene.add(directionalLight);
     this.scene.add(directionalLight.target);
-    const directionalLightCameraHelper = new THREE.CameraHelper(
-      directionalLight.shadow.camera
+    const directionalLightCameraHelper = new THREE.DirectionalLightHelper(
+      // directionalLight.shadow.camera
+      directionalLight,
+      5
     );
-    directionalLightCameraHelper.visible = false;
+    directionalLightCameraHelper.visible = true;
     this.scene.add(directionalLightCameraHelper);
   }
 

@@ -11,7 +11,7 @@ export class Interpolation {
   }
 
   static EaseIn(start, target, progress) {
-    console.log("progress", progress);
+    // console.log("progress", progress);
     return this.Lerp(start, target, this.Quindratic(progress));
   }
 

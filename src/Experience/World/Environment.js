@@ -9,7 +9,7 @@ export default class Environment {
     this.debug = this.experience.debug;
 
     // this.setLights()
-    // this.addGrid();
+    this.addGrid();
     // this.addFrame()
     // this.setEnvironmentMap()
   }
@@ -55,14 +55,12 @@ export default class Environment {
 
   addGrid() {
     // console.log('addGrid')
-
-    this.gridHelper = new THREE.GridHelper(10, 10);
+    // this.gridHelper = new THREE.GridHelper(10, 10);
     // this.gridHelper.rotation.x = -Math.PI * 0.5;
-    this.scene.add(this.gridHelper);
-
+    // this.scene.add(this.gridHelper);
     // The X axis is red. The Y axis is green. The Z axis is blue.
-    const axesHelper = new THREE.AxesHelper(5);
-    this.scene.add(axesHelper);
+    // const axesHelper = new THREE.AxesHelper(5);
+    // this.scene.add(axesHelper);
   }
 
   addFrame() {

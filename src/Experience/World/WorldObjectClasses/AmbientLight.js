@@ -4,37 +4,29 @@ import Experience from "Experience/Experience.js";
 import { executeEffects } from "Experience/Utils/ExecuteEffects.js";
 import { executeInitializeEffects } from "Experience/Utils/ExecuteInitializeEffects.js";
 
-import { get } from "lodash";
 import { Config } from "Experience/Config";
+import { get } from "lodash";
 
-export default class Background {
+export default class AmbientLight {
   constructor(initialProperties) {
     this.experience = new Experience();
     this.scene = this.experience.scene;
     this.resources = this.experience.resources;
     this.instanceName = initialProperties.instanceName;
 
-    this.setGeometry();
-    this.setMaterial(initialProperties);
-    this.setMesh();
+    this.setLight();
   }
 
-  setGeometry() {
-    this.geometry = new THREE.PlaneGeometry(20, 20, 10, 10);
-  }
+  setLight() {
+    const ambientLight = new THREE.AmbientLight(0xffffff);
+    this.light = ambientLight;
 
-  setMaterial(initialProperties) {
-    const color = initialProperties.color || "white";
-
-    this.material = new THREE.MeshStandardMaterial({
-      color: color,
-    });
-  }
-
-  setMesh() {
-    this.mesh = new THREE.Mesh(this.geometry, this.material);
-    this.mesh.receiveShadow = get(Config, "shadows.receiveShadows", false);
-    this.scene.add(this.mesh);
+    this.scene.add(this.light);
+    // const directionalLightCameraHelper = new THREE.CameraHelper(
+    //   directionalLight.shadow.camera
+    // );
+    // directionalLightCameraHelper.visible = false;
+    // this.scene.add(directionalLightCameraHelper);
   }
 
   initializeEffects(effects) {
@@ -42,7 +34,6 @@ export default class Background {
   }
 
   update(effects) {
-    // debugger;
     executeEffects(
       this,
       effects,
@@ -54,7 +45,7 @@ export default class Background {
   moveOffStage() {
     const offStagePlacement = get(Config, "offStage");
 
-    this.mesh.position.set(
+    this.light.position.set(
       offStagePlacement.x,
       offStagePlacement.y,
       offStagePlacement.z
@@ -62,9 +53,7 @@ export default class Background {
   }
 
   destroy() {
-    const object = this.scene.getObjectByProperty("uuid", this.mesh.uuid);
-    object.geometry.dispose();
-    object.material.dispose();
+    const object = this.scene.getObjectByProperty("uuid", this.light.uuid);
     this.scene.remove(object);
   }
 }

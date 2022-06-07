@@ -6,8 +6,8 @@ export const Config = {
     },
     // castShadows: false,
     // receiveShadows: false,
-    castShadows: true,
-    receiveShadows: true,
+    // castShadows: true,
+    // receiveShadows: true,
   },
   offStage: {
     x: 0,
@@ -18,6 +18,6 @@ export const Config = {
   // timerMode: "peaksPlayer",
   timerMode: "threeClock",
   // ^^^ ^^^
-  useEffectComposer: true,
-  exportMode: true,
+  useEffectComposer: false,
+  exportMode: false,
 };
