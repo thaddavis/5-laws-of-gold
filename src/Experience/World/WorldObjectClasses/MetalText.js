@@ -23,8 +23,8 @@ export default class MetalText {
 
   setGeometry(initialProperties) {
     this.geometry = new TextGeometry(initialProperties.text, {
-      font: this.experience.resources.items["helvetikerFont"],
-      // font: this.experience.resources.items["helvetikerBoldFont"],
+      // font: this.experience.resources.items["helvetikerFont"],
+      font: this.experience.resources.items["helvetikerBoldFont"],
       // font: this.experience.resources.items["gentilisFont"],
       size: 1.0,
       height: 0.2,
@@ -42,8 +42,8 @@ export default class MetalText {
       color: 0xffdf4f,
       metalness: 0.9,
       roughness: 0,
-      // emissive: 0xffdf4f,
-      // emissiveIntensity: 0.05,
+      emissive: 0xffdf4f,
+      emissiveIntensity: 0.1,
     });
   }
 

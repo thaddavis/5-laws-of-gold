@@ -14,14 +14,15 @@ export function executeInitializeEffects(object, effects, timeObject) {
       for (let property of effect.properties) {
         const value = get(object, property.path);
         if (typeof value === "number") {
-          let updatedValue =
-            value +
-            (property.to - property.from) *
-              ((timeObject.current - timelineMetadata.effect.startAt) / // calculate the delta
-                // delta /
-                (timelineMetadata.effect.endAt -
-                  timelineMetadata.effect.startAt));
-          set(object, property.path, updatedValue);
+          let initialValue = property.from;
+          // let updatedValue =
+          //   value +
+          //   (property.to - property.from) *
+          //     ((timeObject.current - timelineMetadata.effect.startAt) / // calculate the delta
+          //       // delta /
+          //       (timelineMetadata.effect.endAt -
+          //         timelineMetadata.effect.startAt));
+          set(object, property.path, initialValue);
           object.needsUpdate = true;
         } else if (
           (typeof value === "object" && value.isVector3) || // covers animating position and scal

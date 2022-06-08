@@ -89,6 +89,8 @@ export default class BackgroundWall {
   }
 
   update(effects) {
+    console.log("!#$!#$!#$");
+
     // debugger;
     executeEffects(
       this,

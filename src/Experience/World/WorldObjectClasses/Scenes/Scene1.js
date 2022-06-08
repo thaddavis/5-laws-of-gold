@@ -78,6 +78,8 @@ export default class Scene1 {
   }
 
   update(effects) {
+    debugger;
+
     executeEffects(
       this,
       effects,

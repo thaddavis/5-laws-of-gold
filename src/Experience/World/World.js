@@ -154,6 +154,8 @@ export default class World {
           window.experience.directionalLight.updateLoop();
         }
       } else {
+        debugger;
+
         this.updatables[updatableId].update(updatable.effects);
       }
     }

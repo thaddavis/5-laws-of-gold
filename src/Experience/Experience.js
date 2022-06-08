@@ -22,6 +22,7 @@ import { get } from "lodash";
 import AmbientLight from "./World/WorldObjectClasses/AmbientLight.js";
 import { cameraFromTo } from "./DynamicSequences/cameraFromTo.js";
 import { lightLoop } from "./DynamicSequences/lightLoop";
+import { fadeBackground } from "./DynamicSequences/fadeBackground";
 
 // import Capturer from "./Capturer.js";
 
@@ -132,7 +133,36 @@ export default class Experience {
     // this.scene.fog = new THREE.Fog(color, near, far);
     // this.scene.fog.background = new THREE.Color(color);
 
-    this.slides = [0, 1, 2, 3, 4, 5, 6];
+    this.slides = [
+      {
+        index: 0,
+        instanceName: INSTANCE_NAMES.INTRO,
+      },
+      {
+        index: 1,
+        instanceName: INSTANCE_NAMES.SCENE_ONE,
+      },
+      {
+        index: 2,
+        instanceName: INSTANCE_NAMES.SCENE_TWO,
+      },
+      {
+        index: 3,
+        instanceName: INSTANCE_NAMES.SCENE_THREE,
+      },
+      {
+        index: 4,
+        instanceName: INSTANCE_NAMES.SCENE_FOUR,
+      },
+      {
+        index: 5,
+        instanceName: INSTANCE_NAMES.SCENE_FIVE,
+      },
+      {
+        index: 6,
+        instanceName: INSTANCE_NAMES.OUTRO,
+      },
+    ];
     this.currentSlide = 0;
 
     this.renderer = new Renderer();
@@ -245,6 +275,15 @@ export default class Experience {
         window.experience.camera.instance.position,
         { x: 0, y: 0, z: this.currentSlide * -20 + 15 },
         3
+      );
+
+      fadeBackground(
+        window.experience.world.timelineOfEvents,
+        window.experience.time,
+        1,
+        0,
+        3,
+        this.slides[this.currentSlide - 1].instanceName
       );
     }
   }

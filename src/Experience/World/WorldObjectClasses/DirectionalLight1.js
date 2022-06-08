@@ -113,7 +113,8 @@ export default class DirectionalLight1 {
       (7 + Math.sin(this.experience.time.elapsed * 0.32));
     const newZ =
       Math.sin(ghost3Angle) *
-      (7 + Math.sin(this.experience.time.elapsed * 0.5));
+        (7 + Math.sin(this.experience.time.elapsed * 0.5)) +
+      20;
     const newY =
       Math.sin(this.experience.time.elapsed * 4) +
       Math.sin(this.experience.time.elapsed * 2.5);

@@ -51,6 +51,8 @@ export default class Intro {
   }
 
   update(effects) {
+    debugger;
+
     executeEffects(
       this,
       effects,
