@@ -15,6 +15,7 @@ export default class BackgroundWall {
     this.instanceName = initialProperties.instanceName;
 
     this.setGeometry();
+    this.setTextures();
     this.setMaterial(initialProperties);
     this.setMesh(initialProperties);
   }
@@ -23,12 +24,49 @@ export default class BackgroundWall {
     this.geometry = new THREE.PlaneGeometry(40, 40, 10, 10);
   }
 
+  setTextures() {
+    this.textures = {};
+
+    // brick
+    // this.textures.color = this.resources.items.brickColorTexture;
+    // this.textures.color.encoding = THREE.sRGBEncoding;
+    // this.textures.normal = this.resources.items.brickNormalTexture;
+    // this.textures.aoMap = this.resources.items.brickAoMapTexture;
+    // this.textures.height = this.resources.items.brickHeightTexture;
+
+    // brickTerracota
+    // this.textures.color = this.resources.items.brickTerracotaColorTexture;
+    // this.textures.color.encoding = THREE.sRGBEncoding;
+    // this.textures.normal = this.resources.items.brickTerracotaNormalTexture;
+    // this.textures.aoMap = this.resources.items.brickTerracotaAoMapTexture;
+    // this.textures.height = this.resources.items.brickTerracotaHeightTexture;
+
+    // brickPlainHeightTexture
+    this.textures.color = this.resources.items.brickPlainColorTexture;
+    this.textures.color.encoding = THREE.sRGBEncoding;
+    this.textures.normal = this.resources.items.brickPlainNormalTexture;
+    this.textures.aoMap = this.resources.items.brickPlainAoMapTexture;
+    this.textures.height = this.resources.items.brickPlainHeightTexture;
+  }
+
   setMaterial(initialProperties) {
-    const color = initialProperties.color || "white";
+    const color = initialProperties.color || "#ad976f";
 
     this.material = new THREE.MeshStandardMaterial({
-      color: color,
+      // color: color,
+      map: this.textures.color,
+      normalMap: this.textures.normal,
+      normalScale: new THREE.Vector2(0.2, 0.2),
+      aoMap: this.textures.aoMap,
+      aoMapIntensity: 1,
+      displacementMap: this.textures.height,
+      displacementScale: 0.3,
+      transparent: true,
     });
+
+    // this.material = new THREE.MeshStandardMaterial({
+    //   color: "black",
+    // });
   }
 
   setMesh(initialProperties) {

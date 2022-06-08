@@ -24,11 +24,13 @@ export default class MetalText {
   setGeometry(initialProperties) {
     this.geometry = new TextGeometry(initialProperties.text, {
       font: this.experience.resources.items["helvetikerFont"],
+      // font: this.experience.resources.items["helvetikerBoldFont"],
+      // font: this.experience.resources.items["gentilisFont"],
       size: 1.0,
       height: 0.2,
       curveSegments: 64,
       bevelEnabled: false,
-      bevelThickness: 0.03,
+      bevelThickness: 0.02,
       bevelSize: 0.02,
       bevelOffset: 0,
       bevelSegments: 32,
@@ -37,9 +39,11 @@ export default class MetalText {
 
   setMaterial() {
     this.material = new THREE.MeshStandardMaterial({
-      color: 0xd4af37,
-      metalness: 0.5,
+      color: 0xffdf4f,
+      metalness: 0.9,
       roughness: 0,
+      // emissive: 0xffdf4f,
+      // emissiveIntensity: 0.05,
     });
   }
 

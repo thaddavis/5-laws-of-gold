@@ -46,6 +46,7 @@ import Scene3 from "./WorldObjectInstances/TheRichestManInBabylon/Scenes/Scene3"
 import Scene4 from "./WorldObjectInstances/TheRichestManInBabylon/Scenes/Scene4";
 import Scene5 from "./WorldObjectInstances/TheRichestManInBabylon/Scenes/Scene5";
 import Outro from "./WorldObjectInstances/TheRichestManInBabylon/Scenes/Outro";
+import DirectionalLight1 from "./WorldObjectInstances/DirectionalLight1";
 
 export function initializeWorldObjects(reusables) {
   // reusables[INSTANCE_NAMES.JIMBO_INTRO_TITLE] = JimboIntroTitle;
@@ -58,6 +59,8 @@ export function initializeWorldObjects(reusables) {
   // reusables[INSTANCE_NAMES.WITHERBERRY_LOGO] = WitherberryLogo;
 
   reusables[INSTANCE_NAMES.CAMERA] = Camera;
+  reusables[INSTANCE_NAMES.DIRECTIONAL_LIGHT_1] = DirectionalLight;
+
   reusables[INSTANCE_NAMES.INTRO] = Intro;
   reusables[INSTANCE_NAMES.OUTRO] = Outro;
   reusables[INSTANCE_NAMES.SCENE_ONE] = Scene1;
@@ -101,9 +104,16 @@ export function initializeWorldObjects(reusables) {
 
   for (let r in reusables) {
     console.log("r", r);
-    if ([INSTANCE_NAMES.CAMERA].includes(r)) {
+
+    // debugger;
+    if (
+      [INSTANCE_NAMES.CAMERA, INSTANCE_NAMES.DIRECTIONAL_LIGHT_1].includes(r)
+    ) {
       // Global animatable
-      reusables[r] = get(window.experience, "camera");
+      reusables[r] = get(
+        window.experience,
+        reusables[r].pathToExperienceGlobal
+      );
     } else if (
       [
         INSTANCE_NAMES.INTRO,

@@ -21,6 +21,7 @@ import EffectComposerClass from "./EffectComposerClass.js";
 import { get } from "lodash";
 import AmbientLight from "./World/WorldObjectClasses/AmbientLight.js";
 import { cameraFromTo } from "./DynamicSequences/cameraFromTo.js";
+import { lightLoop } from "./DynamicSequences/lightLoop";
 
 // import Capturer from "./Capturer.js";
 
@@ -160,6 +161,14 @@ export default class Experience {
       // console.log('tick...')
       this.update();
     });
+
+    // lightLoop(
+    //   window.experience.world.timelineOfEvents,
+    //   window.experience.time,
+    //   window.experience.directionalLight.light.position,
+    //   { x: 30, y: 0, z: 0 },
+    //   3
+    // );
   }
 
   resize() {

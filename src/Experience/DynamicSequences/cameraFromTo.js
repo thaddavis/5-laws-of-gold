@@ -25,6 +25,7 @@ export function cameraFromTo(timeline, clock, from, to, duration) {
         properties: [
           {
             path: "instance.position",
+            interpolationMode: Interpolation.MODES.EASE_IN,
             from: {
               x: from.x,
               y: from.y,
@@ -56,6 +57,7 @@ export function cameraFromTo(timeline, clock, from, to, duration) {
         properties: [
           {
             path: "controls",
+            interpolationMode: Interpolation.MODES.EASE_IN,
             from: {
               x: from.x,
               y: from.y,

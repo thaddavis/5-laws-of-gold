@@ -7,6 +7,8 @@ export function executeEffects(object, effects, delta, elapsed) {
   // console.log("object", object);
   // console.log("effects", effects);
 
+  // debugger;
+
   for (let effect of effects) {
     // console.log("effect", effect);
 
@@ -130,6 +132,29 @@ export function executeEffects(object, effects, delta, elapsed) {
           let updatedValue = {};
           for (let dimension of ["x", "y", "z"]) {
             switch (property.interpolationMode) {
+              case Interpolation.MODES.EASE_IN:
+                updatedValue[dimension] = Interpolation.EaseIn(
+                  property.from[dimension],
+                  property.to[dimension],
+                  (elapsed - effect.startAt) / (effect.endAt - effect.startAt)
+                );
+                break;
+              case Interpolation.MODES.EASE_OUT:
+                // debugger;
+                updatedValue[dimension] = Interpolation.EaseOut(
+                  property.from[dimension],
+                  property.to[dimension],
+                  (elapsed - effect.startAt) / (effect.endAt - effect.startAt)
+                );
+                break;
+              case Interpolation.MODES.SPIKE:
+                // debugger;
+                updatedValue[dimension] = Interpolation.Spike(
+                  property.from[dimension],
+                  property.to[dimension],
+                  (elapsed - effect.startAt) / (effect.endAt - effect.startAt)
+                );
+                break;
               default: // Interpolation.MODES.LINEAR
                 updatedValue[dimension] = Interpolation.Lerp(
                   property.from[dimension],

@@ -32,14 +32,14 @@ export default class Outro {
 
     this.group.add(this.background.mesh);
 
-    this.text1 = new MetalText({
-      instanceName: INSTANCE_NAMES.FROM,
-      text: "---",
-      position: new THREE.Vector3(0, 4, 2),
-      scale: new THREE.Vector3(1.2, 1.2, 1.2),
-    });
+    // this.text1 = new MetalText({
+    //   instanceName: INSTANCE_NAMES.FROM,
+    //   text: "---",
+    //   position: new THREE.Vector3(0, 4, 2),
+    //   scale: new THREE.Vector3(1.2, 1.2, 1.2),
+    // });
 
-    this.group.add(this.text1.mesh);
+    // this.group.add(this.text1.mesh);
 
     this.part1 = new MetalText({
       instanceName: INSTANCE_NAMES.PART_1_OF_OUTRO,
@@ -52,21 +52,21 @@ export default class Outro {
 
     this.part2 = new MetalText({
       instanceName: INSTANCE_NAMES.PART_2_OF_OUTRO,
-      text: "George Samuel Clason",
+      text: "George S. Clason",
       position: new THREE.Vector3(0, 0, 2),
       scale: new THREE.Vector3(1, 1, 1),
     });
 
     this.group.add(this.part2.mesh);
 
-    this.part3 = new MetalText({
-      instanceName: INSTANCE_NAMES.PART_3_OF_OUTRO,
-      text: "---",
-      position: new THREE.Vector3(0, -2, 2),
-      scale: new THREE.Vector3(1, 1, 1),
-    });
+    // this.part3 = new MetalText({
+    //   instanceName: INSTANCE_NAMES.PART_3_OF_OUTRO,
+    //   text: "---",
+    //   position: new THREE.Vector3(0, -2, 2),
+    //   scale: new THREE.Vector3(1, 1, 1),
+    // });
 
-    this.group.add(this.part3.mesh);
+    // this.group.add(this.part3.mesh);
 
     this.group.position.set(0, 0, -120);
 

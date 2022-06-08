@@ -24,7 +24,7 @@ export default class DirectionalLight1 {
     this.resources = this.experience.resources;
     this.instanceName = initialProperties.instanceName;
 
-    this.gui = new GUI();
+    // this.gui = new GUI();
 
     this.setLight(initialProperties.position, initialProperties.target);
   }
@@ -49,31 +49,31 @@ export default class DirectionalLight1 {
     // directionalLightCameraHelper.visible = true;
     this.scene.add(directionalLightCameraHelper);
 
-    makeXYZGUI(this.gui, this.light.position, "position", () => {
-      console.log("___ ___ ___");
+    // makeXYZGUI(this.gui, this.light.position, "position", () => {
+    //   console.log("___ ___ ___");
 
-      const sceneChild1 = window.experience.scene.children.find(
-        (i) => i.name === "DIRECTIONAL_LIGHT_1"
-      );
-      sceneChild1.target.updateMatrixWorld();
+    //   const sceneChild1 = window.experience.scene.children.find(
+    //     (i) => i.name === "DIRECTIONAL_LIGHT_1"
+    //   );
+    //   sceneChild1.target.updateMatrixWorld();
 
-      const sceneChild2 = window.experience.scene.children.find(
-        (i) => i.name === "DIRECTIONAL_LIGHT_1_HELPER"
-      );
-      sceneChild2.update();
-    });
+    //   const sceneChild2 = window.experience.scene.children.find(
+    //     (i) => i.name === "DIRECTIONAL_LIGHT_1_HELPER"
+    //   );
+    //   sceneChild2.update();
+    // });
 
-    makeXYZGUI(this.gui, this.light.target.position, "target", () => {
-      const sceneChild1 = window.experience.scene.children.find(
-        (i) => i.name === "DIRECTIONAL_LIGHT_1"
-      );
-      sceneChild1.target.updateMatrixWorld();
+    // makeXYZGUI(this.gui, this.light.target.position, "target", () => {
+    //   const sceneChild1 = window.experience.scene.children.find(
+    //     (i) => i.name === "DIRECTIONAL_LIGHT_1"
+    //   );
+    //   sceneChild1.target.updateMatrixWorld();
 
-      const sceneChild2 = window.experience.scene.children.find(
-        (i) => i.name === "DIRECTIONAL_LIGHT_1_HELPER"
-      );
-      sceneChild2.update();
-    });
+    //   const sceneChild2 = window.experience.scene.children.find(
+    //     (i) => i.name === "DIRECTIONAL_LIGHT_1_HELPER"
+    //   );
+    //   sceneChild2.update();
+    // });
   }
 
   updateLight() {
@@ -89,12 +89,36 @@ export default class DirectionalLight1 {
   }
 
   update(effects) {
+    console.log("DirectionalLight1 update(effects)", effects);
+
     executeEffects(
       this,
       effects,
       this.experience.time.delta,
       this.experience.time.elapsed
     );
+  }
+
+  updateLoop() {
+    console.log("updatingLoop");
+
+    // this.experience.time.elapsed
+
+    // const newX = 1 * Math.sin(this.experience.time.elapsed);
+    // const newY = 1 * Math.sin(this.experience.time.elapsed);
+
+    const ghost3Angle = -this.experience.time.elapsed * 0.18;
+    const newX =
+      Math.cos(ghost3Angle) *
+      (7 + Math.sin(this.experience.time.elapsed * 0.32));
+    const newZ =
+      Math.sin(ghost3Angle) *
+      (7 + Math.sin(this.experience.time.elapsed * 0.5));
+    const newY =
+      Math.sin(this.experience.time.elapsed * 4) +
+      Math.sin(this.experience.time.elapsed * 2.5);
+
+    this.light.position.set(newX, newY, newZ);
   }
 
   moveOffStage() {

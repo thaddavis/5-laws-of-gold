@@ -37,6 +37,8 @@ import { timeline_camera } from "../Timeline/Camera/Camera";
 import { get } from "lodash";
 import { INSTANCE_NAMES } from "../Utils/Enums";
 
+import { lightLoop } from "Experience/DynamicSequences/lightLoop";
+
 export default class World {
   constructor() {
     this.experience = new Experience();
@@ -85,11 +87,22 @@ export default class World {
       // timeline_cross_to_english_cross(this.timelineOfEvents);
       // ^^^ Alt Sequence ^^^
 
+      console.log("calling lightLoop");
+      lightLoop(
+        window.experience.world.timelineOfEvents,
+        window.experience.time,
+        window.experience.directionalLight.light.position,
+        { x: 30, y: 0, z: 0 },
+        3
+      );
+
       this.environment = new Environment();
     });
   }
 
   update() {
+    console.log("update");
+
     for (let updatableId in this.timelineOfEvents) {
       // debugger;
 
@@ -108,7 +121,8 @@ export default class World {
         // -^-^- -^-^- -^-^- -^-^-
       } else if (
         this.experience.time.elapsed > updatable.endAt &&
-        updatable.started === true
+        updatable.started === true &&
+        !updatable.isLoop
       ) {
         // debugger;
 
@@ -118,20 +132,27 @@ export default class World {
         }
         this.timelineOfEvents[updatableId].started = false;
         delete this.updatables[updatableId];
+      } else if (updatable.isLoop) {
+        console.log("LEAVE IT");
       }
     }
 
     for (let updatableId in this.updatables) {
+      // debugger;
+
       const updatable = this.timelineOfEvents[updatableId];
-      if (
-        [
-          INSTANCE_NAMES.CAMERA,
-          INSTANCE_NAMES.DIRECTIONAL_LIGHT_1,
-          INSTANCE_NAMES.SCENE_ONE,
-        ].includes(updatable.instanceName)
-      ) {
+      if ([INSTANCE_NAMES.CAMERA].includes(updatable.instanceName)) {
         // * ANIMATE GLOBAL CAMERA * //
         window.experience.camera.updateCamera(updatable.effects);
+      } else if (
+        [INSTANCE_NAMES.DIRECTIONAL_LIGHT_1].includes(updatable.instanceName)
+      ) {
+        if (!updatable.isLoop) {
+          window.experience.directionalLight.update(updatable.effects);
+        } else {
+          console.log("update Light loop");
+          window.experience.directionalLight.updateLoop();
+        }
       } else {
         this.updatables[updatableId].update(updatable.effects);
       }
