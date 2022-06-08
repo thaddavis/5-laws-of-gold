@@ -58,7 +58,6 @@ export default class SkinPlane1 {
   }
 
   initializeEffects(effects) {
-    // debugger;
     executeInitializeEffects(this, effects, this.experience.time);
   }
 

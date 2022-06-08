@@ -20,4 +20,5 @@ export const Config = {
   // ^^^ ^^^
   useEffectComposer: false,
   exportMode: false,
+  showGrid: true,
 };

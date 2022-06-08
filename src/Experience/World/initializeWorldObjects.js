@@ -30,16 +30,22 @@ import WitherberryLogo from "./WorldObjectInstances/WitherberryLogo";
 import Line1 from "Experience/World/WorldObjectInstances/Line1";
 import Line2 from "Experience/World/WorldObjectInstances/Line2";
 
-import The5LawsOfGold from "Experience/World/WorldObjectInstances/TheRichestManInBabylon/The5LawsOfGold";
-
 import { INSTANCE_NAMES } from "../Utils/Enums";
 
 import { get } from "lodash";
 
-import * as THREE from "three";
-
 import { Fire } from "./WorldObjectClasses/Fire";
 import AmbientLight from "./WorldObjectInstances/TheRichestManInBabylon/AmbientLight";
+
+// import The5LawsOfGold from "Experience/World/WorldObjectInstances/TheRichestManInBabylon/The5LawsOfGold";
+
+import Intro from "Experience/World/WorldObjectInstances/TheRichestManInBabylon/Scenes/Intro";
+import Scene1 from "Experience/World/WorldObjectInstances/TheRichestManInBabylon/Scenes/Scene1";
+import Scene2 from "./WorldObjectInstances/TheRichestManInBabylon/Scenes/Scene2";
+import Scene3 from "./WorldObjectInstances/TheRichestManInBabylon/Scenes/Scene3";
+import Scene4 from "./WorldObjectInstances/TheRichestManInBabylon/Scenes/Scene4";
+import Scene5 from "./WorldObjectInstances/TheRichestManInBabylon/Scenes/Scene5";
+import Outro from "./WorldObjectInstances/TheRichestManInBabylon/Scenes/Outro";
 
 export function initializeWorldObjects(reusables) {
   // reusables[INSTANCE_NAMES.JIMBO_INTRO_TITLE] = JimboIntroTitle;
@@ -52,7 +58,13 @@ export function initializeWorldObjects(reusables) {
   // reusables[INSTANCE_NAMES.WITHERBERRY_LOGO] = WitherberryLogo;
 
   reusables[INSTANCE_NAMES.CAMERA] = Camera;
-  reusables[INSTANCE_NAMES.THE_FIVE_LAWS_OF_GOLD] = The5LawsOfGold;
+  reusables[INSTANCE_NAMES.INTRO] = Intro;
+  reusables[INSTANCE_NAMES.OUTRO] = Outro;
+  reusables[INSTANCE_NAMES.SCENE_ONE] = Scene1;
+  reusables[INSTANCE_NAMES.SCENE_TWO] = Scene2;
+  reusables[INSTANCE_NAMES.SCENE_THREE] = Scene3;
+  reusables[INSTANCE_NAMES.SCENE_FOUR] = Scene4;
+  reusables[INSTANCE_NAMES.SCENE_FIVE] = Scene5;
 
   // A Section
 
@@ -89,11 +101,21 @@ export function initializeWorldObjects(reusables) {
 
   for (let r in reusables) {
     console.log("r", r);
-    if (
-      [INSTANCE_NAMES.CAMERA, INSTANCE_NAMES.DIRECTIONAL_LIGHT_1].includes(r)
-    ) {
+    if ([INSTANCE_NAMES.CAMERA].includes(r)) {
       // Global animatable
       reusables[r] = get(window.experience, "camera");
+    } else if (
+      [
+        INSTANCE_NAMES.INTRO,
+        INSTANCE_NAMES.SCENE_ONE,
+        INSTANCE_NAMES.SCENE_TWO,
+        INSTANCE_NAMES.SCENE_THREE,
+        INSTANCE_NAMES.SCENE_FOUR,
+        INSTANCE_NAMES.SCENE_FIVE,
+        INSTANCE_NAMES.OUTRO,
+      ].includes(r)
+    ) {
+      reusables[r] = new reusables[r].theClass(reusables[r].initialProperties);
     } else {
       reusables[r] = new reusables[r].theClass(reusables[r].initialProperties);
       reusables[r].moveOffStage();

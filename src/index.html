@@ -25,22 +25,24 @@
     <!-- <meta property="og:image" content="image.png"> -->
 
     <!-- 
-  <link rel="icon" href="/favicon.ico">
-  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-  <link rel="stylesheet" href="css/styles.css?v=1.0"> 
-  -->
+    <link rel="icon" href="/favicon.ico">
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="stylesheet" href="css/styles.css?v=1.0"> 
+    -->
     <link rel="stylesheet" href="styles/style.css" />
   </head>
 
   <body>
     <canvas class="webgl" id="webgl"></canvas>
-    <div id="zoomview-container"></div>
+    <!-- <div id="zoomview-container"></div> -->
     <!-- <div id="overview-container"></div> -->
     <!-- <div id="debug"></div> -->
 
-    <button>Back</button>
-    <button>Forward</button>
+    <div id="slideshow-controls">
+      <button id="slide-back">Back</button>
+      <button id="slide-forward">Forward</button>
+    </div>
 
     <a class="button" href="#" id="start-capturing-button">Start recording</a>
     <a class="button" href="#" id="download-video-button"

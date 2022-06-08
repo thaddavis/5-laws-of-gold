@@ -1,66 +1,48 @@
 import * as THREE from "three";
-import Experience from "../../Experience.js";
-import { TextGeometry } from "three/examples/jsm/geometries/TextGeometry.js";
+import Experience from "Experience/Experience.js";
 
 import { executeEffects } from "Experience/Utils/ExecuteEffects.js";
 import { executeInitializeEffects } from "Experience/Utils/ExecuteInitializeEffects.js";
 
-import { Config } from "Experience/Config/index.js";
 import { get } from "lodash";
+import { Config } from "Experience/Config";
 
-export default class MetalText {
+export default class BackgroundWall {
   constructor(initialProperties) {
     this.experience = new Experience();
     this.scene = this.experience.scene;
     this.resources = this.experience.resources;
-
     this.instanceName = initialProperties.instanceName;
 
-    this.setGeometry(initialProperties);
-    this.setMaterial();
+    this.setGeometry();
+    this.setMaterial(initialProperties);
     this.setMesh(initialProperties);
   }
 
-  setGeometry(initialProperties) {
-    this.geometry = new TextGeometry(initialProperties.text, {
-      font: this.experience.resources.items["helvetikerFont"],
-      size: 1.0,
-      height: 0.2,
-      curveSegments: 64,
-      bevelEnabled: false,
-      bevelThickness: 0.03,
-      bevelSize: 0.02,
-      bevelOffset: 0,
-      bevelSegments: 32,
-    });
+  setGeometry() {
+    this.geometry = new THREE.PlaneGeometry(40, 40, 10, 10);
   }
 
-  setMaterial() {
+  setMaterial(initialProperties) {
+    const color = initialProperties.color || "white";
+
     this.material = new THREE.MeshStandardMaterial({
-      color: 0xd4af37,
-      metalness: 0.5,
-      roughness: 0,
+      color: color,
     });
   }
 
   setMesh(initialProperties) {
-    this.geometry.center();
     this.mesh = new THREE.Mesh(this.geometry, this.material);
+
+    console.log("BackgroundWall", initialProperties);
 
     this.mesh.position.set(
       initialProperties.position.x,
       initialProperties.position.y,
       initialProperties.position.z
     );
-    this.mesh.scale.set(
-      initialProperties.scale.x,
-      initialProperties.scale.y,
-      initialProperties.scale.z
-    );
 
-    this.mesh.name = initialProperties.instanceName;
-
-    this.mesh.castShadow = true;
+    this.mesh.receiveShadow = get(Config, "shadows.receiveShadows", false);
     this.scene.add(this.mesh);
   }
 
@@ -69,6 +51,7 @@ export default class MetalText {
   }
 
   update(effects) {
+    // debugger;
     executeEffects(
       this,
       effects,

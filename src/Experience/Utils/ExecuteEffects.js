@@ -1,4 +1,5 @@
 import { set, get } from "lodash";
+import { Vector3 } from "three";
 import { Interpolation } from "Experience/Utils/Interpolation";
 
 export function executeEffects(object, effects, delta, elapsed) {
@@ -7,11 +8,18 @@ export function executeEffects(object, effects, delta, elapsed) {
   // console.log("effects", effects);
 
   for (let effect of effects) {
+    // console.log("effect", effect);
+
     if (effect.startAt < elapsed && elapsed < effect.endAt) {
       // ONLY EXECUTE CURRENT EFFECTS
       for (let property of effect.properties) {
         const value = get(object, property.path);
-        //   debugger;
+
+        // console.log("value", value);
+        // console.log("typeof value", typeof value);
+
+        // debugger;
+
         if (typeof value === "number") {
           // covers animating scalars
           let updatedValue =
@@ -112,6 +120,32 @@ export function executeEffects(object, effects, delta, elapsed) {
 
           // debugger;
           object.needsUpdate = true;
+        } else if (
+          typeof value === "object" &&
+          // "PerspectiveCamera" === value.type
+          get(value, "constructor.name") === "OrbitControls"
+        ) {
+          // debugger;
+
+          let updatedValue = {};
+          for (let dimension of ["x", "y", "z"]) {
+            switch (property.interpolationMode) {
+              default: // Interpolation.MODES.LINEAR
+                updatedValue[dimension] = Interpolation.Lerp(
+                  property.from[dimension],
+                  property.to[dimension],
+                  (elapsed - effect.startAt) / (effect.endAt - effect.startAt)
+                );
+            }
+          }
+
+          // console.log("lookAt", updatedValue.x, updatedValue.y, updatedValue.z);
+
+          value.target = new Vector3(
+            updatedValue.x,
+            updatedValue.y,
+            updatedValue.z
+          );
         }
       }
     }

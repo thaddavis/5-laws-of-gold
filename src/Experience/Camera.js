@@ -40,7 +40,7 @@ export default class Camera {
   }
 
   initializeEffects(effects) {
-    console.log("initializeEffects CAMERA");
+    // console.log("initializeEffects CAMERA");
     // debugger;
     executeInitializeEffects(this, effects, this.experience.time);
   }
@@ -50,8 +50,8 @@ export default class Camera {
   }
 
   updateCamera(effects) {
-    // console.log("updateCamera");
-    // debugger;
+    // console.log("updateCamera", effects);
+
     executeEffects(
       this,
       effects,

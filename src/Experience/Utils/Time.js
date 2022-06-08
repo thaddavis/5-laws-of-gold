@@ -63,7 +63,7 @@ export default class Time extends EventEmitter {
     } else if (get(Config, "timerMode") === "date") {
     } else {
       // vvv vvv *** WITH THREE CLOCK *** vvv vvv
-      const desiredFrameRateInterval = 1 / 30;
+      const desiredFrameRateInterval = 1 / 60;
 
       const currentTime = this.clock.getElapsedTime();
       const frameRateElapsed = currentTime - this.then;

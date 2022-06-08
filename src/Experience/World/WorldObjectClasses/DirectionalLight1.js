@@ -52,8 +52,6 @@ export default class DirectionalLight1 {
     makeXYZGUI(this.gui, this.light.position, "position", () => {
       console.log("___ ___ ___");
 
-      // debugger;
-
       const sceneChild1 = window.experience.scene.children.find(
         (i) => i.name === "DIRECTIONAL_LIGHT_1"
       );
@@ -64,6 +62,7 @@ export default class DirectionalLight1 {
       );
       sceneChild2.update();
     });
+
     makeXYZGUI(this.gui, this.light.target.position, "target", () => {
       const sceneChild1 = window.experience.scene.children.find(
         (i) => i.name === "DIRECTIONAL_LIGHT_1"

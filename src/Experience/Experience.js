@@ -19,6 +19,8 @@ import EffectComposerClass from "./EffectComposerClass.js";
 // import AudioClass from "./World/AudioClass.js";
 
 import { get } from "lodash";
+import AmbientLight from "./World/WorldObjectClasses/AmbientLight.js";
+import { cameraFromTo } from "./DynamicSequences/cameraFromTo.js";
 
 // import Capturer from "./Capturer.js";
 
@@ -118,6 +120,20 @@ export default class Experience {
       position: new THREE.Vector3(0, 0, 2),
       target: new THREE.Vector3(0, 0, -2),
     });
+
+    this.ambient = new AmbientLight({
+      instanceName: INSTANCE_NAMES.AMBIENT_LIGHT,
+    });
+
+    // const near = 0.1;
+    // const far = 0.2;
+    // const color = "lightblue";
+    // this.scene.fog = new THREE.Fog(color, near, far);
+    // this.scene.fog.background = new THREE.Color(color);
+
+    this.slides = [0, 1, 2, 3, 4, 5, 6];
+    this.currentSlide = 0;
+
     this.renderer = new Renderer();
     // this.capturer = new Capturer();
 
@@ -130,6 +146,9 @@ export default class Experience {
     this.stats = new Stats();
     this.stats.showPanel(0); // 0: fps, 1: ms, 2: mb, 3+: custom
     document.body.appendChild(this.stats.dom);
+
+    this.forward = this.nextSlide;
+    this.backward = this.previousSlide;
 
     // Resize event
     this.sizes.on("resize", () => {
@@ -203,5 +222,37 @@ export default class Experience {
     instance = null;
 
     if (this.debug.active) this.debug.ui.destroy();
+  }
+
+  nextSlide() {
+    console.log("transition to next slide");
+
+    if (this.currentSlide < this.slides.length - 1) {
+      this.currentSlide++;
+
+      cameraFromTo(
+        window.experience.world.timelineOfEvents,
+        window.experience.time,
+        window.experience.camera.instance.position,
+        { x: 0, y: 0, z: this.currentSlide * -20 + 15 },
+        3
+      );
+    }
+  }
+
+  previousSlide() {
+    console.log("transition to previous slide");
+
+    if (this.currentSlide > 0) {
+      this.currentSlide--;
+
+      cameraFromTo(
+        window.experience.world.timelineOfEvents,
+        window.experience.time,
+        window.experience.camera.instance.position,
+        { x: 0, y: 0, z: this.currentSlide * -20 + 15 },
+        3
+      );
+    }
   }
 }
